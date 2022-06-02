@@ -39,7 +39,7 @@ class PauseUI(pygame.sprite.Sprite):
         self.restart_button.hover_color = button_hover_color
 
         def on_click_restart():
-            self.game.ball.reset_ball()
+            self.game.ball.reset_ball(self.game.clock)
             self.game.paused = False
             self.game.game_time.stop()
             self.game.game_time.start()

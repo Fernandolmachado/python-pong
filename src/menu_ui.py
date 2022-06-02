@@ -7,7 +7,7 @@ from src import Button
 
 class MenuUI(pygame.sprite.Sprite):
     def __init__(self, game_scene, pos, size, color, groups):
-        super().__init__(groups)
+        super().__init__(*groups)
         self.image = pygame.Surface(size, pygame.SRCALPHA)
         self.rect = self.image.get_rect(center=pos)
         self.color = color
@@ -20,7 +20,7 @@ class MenuUI(pygame.sprite.Sprite):
 
         # play button
         self.play_button = Button((self.image.get_rect().centerx, self.image.get_rect().height // 4),
-                                  (300, 80), button_color, [self.button_group])
+                                  (300, 80), button_color, *[self.button_group])
         self.play_button.round_radius = button_border
         self.play_button.text = "Jogar"
         self.play_button.font_color = "black"
@@ -66,12 +66,12 @@ class MenuUI(pygame.sprite.Sprite):
 
     def input(self):
         # get mouse position
-        mousex, mousey = pygame.mouse.get_pos()
+        mouse_x, mouse_y = pygame.mouse.get_pos()
 
         # normalize mouse position to the ui surface
-        mousex -= self.rect.left
-        mousey -= self.rect.top
-        mouse_pos = (mousex, mousey)
+        mouse_x -= self.rect.left
+        mouse_y -= self.rect.top
+        mouse_pos = (mouse_x, mouse_y)
 
         for index, button in enumerate(self.button_group.sprites()):
             if button.rect.collidepoint(mouse_pos):
