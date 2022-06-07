@@ -9,6 +9,7 @@ from src.background import Background
 from src.paddle import Paddle
 from src.ball import Ball
 
+from src.ui import UI
 from src.menu_ui import MenuUI
 from src.board_ui import BoardUI
 from src.pause_ui import PauseUI

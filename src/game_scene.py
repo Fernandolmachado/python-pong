@@ -35,7 +35,7 @@ class GameScene(Scene):
         disp_rect = self.display_surf.get_rect()
         
         self.ui_group = pygame.sprite.GroupSingle()
-        self.ui = BoardUI(self, disp_rect.topleft, (disp_rect.width, 50), pygame.Color(40, 40, 40, 180), [self.ui_group])
+        self.ui = BoardUI(self, (disp_rect.width/2, 25), (disp_rect.width, 50), pygame.Color(40, 40, 40, 180), [self.ui_group])
 
         # setup pause attributes
         self.pause_group = pygame.sprite.GroupSingle()
