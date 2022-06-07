@@ -23,6 +23,6 @@ button_hover_color = (160, 160, 100, 150)
 button_border = 10
 
 # game attributes
-match_time = 120000     # msec
+match_time = 10000     # msec
 
 menu_color = pygame.Color(40, 40, 40, 180)

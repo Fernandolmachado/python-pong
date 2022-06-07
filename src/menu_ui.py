@@ -6,8 +6,8 @@ from src import UI, Button
 
 
 class MenuUI(UI):
-    def __init__(self, game_scene, pos, size, color, groups):
-        super().__init__(game_scene, pos, size, color, groups, round=True)
+    def __init__(self, game_scene, pos, size, color, *groups):
+        super().__init__(game_scene, pos, size, color, *groups, round=True)
 
         # play button
         self.play_button = Button((self.image.get_rect().centerx, self.image.get_rect().height // 4),
@@ -22,7 +22,7 @@ class MenuUI(UI):
 
         self.play_button.click_function = on_click_play
 
-        # restart button
+        # option button
         self.option_button = Button(self.image.get_rect().center,
                                     (300, 80), button_color, [self.button_group])
         self.option_button.round_radius = button_border
@@ -36,7 +36,7 @@ class MenuUI(UI):
 
         self.option_button.click_function = on_click_option
 
-        # menu button
+        # exit button
         self.exit_button = Button((self.image.get_rect().centerx, (self.image.get_rect().height // 4) * 3 + 2),
                                   (300, 80), button_color, [self.button_group])
         self.exit_button.round_radius = button_border

@@ -40,6 +40,7 @@ class Timer(object):
         if self.running:
             self.time += self.clock.get_time()
 
-            if self.delay_time <= self.time:
+            if self.time >= self.delay_time:
+                self.time = self.delay_time
                 self.reached = True
                 self.pause()

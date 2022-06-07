@@ -13,6 +13,7 @@ from src.ui import UI
 from src.menu_ui import MenuUI
 from src.board_ui import BoardUI
 from src.pause_ui import PauseUI
+from src.endgame_ui import EndgameUI
 
 from src.scene import Scene
 from src.menu_scene import MenuScene

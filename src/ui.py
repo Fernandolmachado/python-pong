@@ -2,7 +2,7 @@ import pygame
 
 
 class UI(pygame.sprite.Sprite):
-    def __init__(self, game_scene, pos, size, color, groups, round=False):
+    def __init__(self, game_scene, pos, size, color, *groups, round=False):
         super().__init__(groups)
         self.image = pygame.Surface(size, pygame.SRCALPHA)
         self.rect = self.image.get_rect(center=pos)

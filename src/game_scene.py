@@ -2,7 +2,8 @@ import pygame
 
 from src import screen_width, screen_height, paddle_size, match_time, menu_color
 from src import Background, Paddle, Ball
-from src import BoardUI, PauseUI, Timer
+from src import Timer
+from src import BoardUI, PauseUI, EndgameUI
 from src import Scene
 
 
@@ -32,14 +33,14 @@ class GameScene(Scene):
         self.visible_group.add(self.ball)
 
         # setup UI attributes
-        disp_rect = self.display_surf.get_rect()
-        
         self.ui_group = pygame.sprite.GroupSingle()
-        self.ui = BoardUI(self, (disp_rect.width/2, 25), (disp_rect.width, 50), pygame.Color(40, 40, 40, 180), [self.ui_group])
+
+        disp_rect = self.display_surf.get_rect()
+        self.ui = BoardUI(self, (disp_rect.width/2, 25), (disp_rect.width, 50),
+                          pygame.Color(40, 40, 40, 180), [self.ui_group])
 
         # setup pause attributes
         self.pause_group = pygame.sprite.GroupSingle()
-        
         self.pause_ui = PauseUI(self, (disp_rect.width / 2, disp_rect.height / 2),
                                 (disp_rect.width * 0.5, disp_rect.height * 0.5), menu_color, [self.pause_group])
 
@@ -48,9 +49,16 @@ class GameScene(Scene):
         self.pause_timer = Timer(self.clock, 300)
         self.pause_timer.reached = True
 
+        # setup end-game ui
+        self.endgame_group = pygame.sprite.GroupSingle()
+        self.endgame_ui = EndgameUI(self, (disp_rect.width / 2, disp_rect.height / 2),
+                                (disp_rect.width * 0.5, disp_rect.height * 0.5), menu_color, [self.endgame_group])
+
         # game attributes
         self.game_time = Timer(self.clock, match_time)
         self.game_time.start()
+
+        self.end = False
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -110,14 +118,28 @@ class GameScene(Scene):
             self.ball.reset_ball(self.clock)
             self.paddle1.increase_scored()
 
+    def rules(self):
+        self.game_time.update()
+        self.make_shot()
+        self.make_goal()
+        self.endgame()
+
+    def endgame(self):
+        if self.game_time.time_reached():
+            self.end = True
+            if self.paddle1.score > self.paddle2.score:
+                self.endgame_ui.set_win(1)
+            elif self.paddle1.score < self.paddle2.score:
+                self.endgame_ui.set_win(2)
+            else:
+                self.endgame_ui.set_win()
+
     def run(self):
         self.input()
-        self.pause_timer.update()
+        self.pause_timer.update()       # hold esc button activate to not process every frame
 
-        if not self.paused:
-            self.game_time.update()
-            self.make_shot()
-            self.make_goal()
+        if not self.paused and not self.end:
+            self.rules()
             self.visible_group.update()
             self.ui_group.update()
 
@@ -128,3 +150,8 @@ class GameScene(Scene):
         if self.paused:
             self.pause_group.update()
             self.pause_group.draw(self.display_surf)
+
+        if self.end:
+            self.endgame_group.update()
+            self.endgame_group.draw(self.display_surf)
+
