@@ -1,6 +1,6 @@
 import pygame
 
-from src import screen_width, screen_height, paddle_size, menu_color, user_config
+from src import screen_width, screen_height, paddle_size, menu_color, user_config, audio_composer
 from src import Background, Paddle, Ball
 from src import Timer
 from src import BoardUI, PauseUI, EndgameUI
@@ -61,6 +61,10 @@ class GameScene(Scene):
 
         self.end = False
 
+        # setup game music
+        audio_composer.set_game()
+        audio_composer.music.play(-1)
+
     def input(self):
         keys = pygame.key.get_pressed()
 
@@ -68,7 +72,13 @@ class GameScene(Scene):
         if keys[pygame.K_ESCAPE] and self.pause_timer.time_reached():
             self.pause_timer.stop()
             self.pause_timer.start()
-            self.paused = not self.paused
+
+            if self.paused:
+                self.paused = False
+                audio_composer.music.unpause()
+            else:
+                self.paused = True
+                audio_composer.music.pause()
 
         if not self.paused:
             # check player 1 input
@@ -85,6 +95,7 @@ class GameScene(Scene):
 
     def make_shot(self):
         if self.paddle1.rect.colliderect(self.ball.rect):
+            audio_composer.sfx_paddle.play()
             if (self.paddle1.rect.top > self.ball.rect.centery and self.ball.velocity.y > 0) \
                     or self.paddle1.rect.bottom < self.ball.rect.centery and self.ball.velocity.y < 0:
                 # check is collision is lateral
@@ -97,6 +108,7 @@ class GameScene(Scene):
             self.ball.velocity.x *= -1
 
         if self.paddle2.rect.colliderect(self.ball.rect):
+            audio_composer.sfx_paddle.play()
             if (self.paddle2.rect.top > self.ball.rect.centery and self.ball.velocity.y > 0) \
                     or (self.paddle2.rect.bottom < self.ball.rect.centery and self.ball.velocity.y < 0):
                 # check is collision is lateral
@@ -115,9 +127,11 @@ class GameScene(Scene):
         if self.ball.rect.left <= 0:
             self.ball.reset_ball(self.clock)
             self.paddle2.increase_scored()
+            audio_composer.sfx_goal.play()
         elif self.ball.rect.right >= self.background.get_width():
             self.ball.reset_ball(self.clock)
             self.paddle1.increase_scored()
+            audio_composer.sfx_goal.play()
 
     def rules(self):
         self.game_time.update()
@@ -127,6 +141,7 @@ class GameScene(Scene):
 
     def endgame(self):
         if self.game_time.time_reached():
+            audio_composer.music.stop()
             self.end = True
             if self.paddle1.score > self.paddle2.score:
                 self.endgame_ui.set_win(1)

@@ -1,4 +1,5 @@
 from src.user_config import UserConfig
+from src.audio_composer import AudioComposer
 from src.save import *
 from src.settings import *
 from src.debug import Debug

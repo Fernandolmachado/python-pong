@@ -1,6 +1,6 @@
 import pygame
 
-from src import button_border, button_color, button_hover_color
+from src import button_border, button_color, button_hover_color, audio_composer
 from src import UI, Button
 
 
@@ -18,6 +18,7 @@ class PauseUI(UI):
 
         def on_click_play():
             self.game.paused = False
+            audio_composer.music.unpause()
 
         self.play_button.click_function = on_click_play
 
@@ -36,6 +37,8 @@ class PauseUI(UI):
             self.game.game_time.start()
             self.game.paddle1.score = 0
             self.game.paddle2.score = 0
+            audio_composer.music.stop()
+            audio_composer.music.play(-1)
 
         self.restart_button.click_function = on_click_restart
 
@@ -49,5 +52,6 @@ class PauseUI(UI):
 
         def on_click_exit():
             self.game.game_manager.scene_index -= 1
+            audio_composer.music.stop()
 
         self.exit_button.click_function = on_click_exit

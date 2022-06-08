@@ -1,4 +1,4 @@
-from src import button_border, button_color, button_hover_color, user_config
+from src import button_border, button_color, button_hover_color, user_config, audio_composer
 from src import save_settings
 from src import UI, Text, ArrowButton, Button
 
@@ -32,6 +32,7 @@ class OptionUI(UI):
         def dec_sxf_volume():
             user_config.dec_sxf_volume()
             self.vl_sfx.text = user_config.sxf_volume
+            audio_composer.set_sfx_volume(user_config.sxf_volume)
 
         btn_left.click_function = dec_sxf_volume
 
@@ -42,6 +43,7 @@ class OptionUI(UI):
         def inc_sxf_volume():
             user_config.inc_sxf_volume()
             self.vl_sfx.text = user_config.sxf_volume
+            audio_composer.set_sfx_volume(user_config.sxf_volume)
 
         btn_right.click_function = inc_sxf_volume
 
@@ -65,6 +67,7 @@ class OptionUI(UI):
         def dec_music_volume():
             user_config.dec_music_volume()
             self.vl_music.text = user_config.music_volume
+            audio_composer.set_sfx_volume(user_config.music_volume)
 
         btn_left.click_function = dec_music_volume
 
@@ -75,6 +78,7 @@ class OptionUI(UI):
         def inc_music_volume():
             user_config.inc_music_volume()
             self.vl_music.text = user_config.music_volume
+            audio_composer.set_sfx_volume(user_config.music_volume)
 
         btn_right.click_function = inc_music_volume
 

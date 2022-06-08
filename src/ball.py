@@ -1,7 +1,7 @@
 import pygame
 import random
 
-from src import ball_speed, start_delay, ball_radius
+from src import ball_speed, start_delay, ball_radius, audio_composer
 from src import Timer
 
 
@@ -51,9 +51,11 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.top <= self.boundaries.top:
             self.rect.top = self.boundaries.top + 1
             self.velocity.y *= -1
+            audio_composer.sfx_wall.play()
         elif self.rect.bottom >= self.boundaries.bottom:
             self.rect.bottom = self.boundaries.bottom - 1
             self.velocity.y *= -1
+            audio_composer.sfx_wall.play()
 
     def update(self):
         # capture event created early

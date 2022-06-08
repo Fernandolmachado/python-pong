@@ -1,5 +1,7 @@
 import pygame
 
+from src import user_config, audio_composer
+
 
 class Button(pygame.sprite.Sprite):
     def __init__(self, pos, size, color, groups):
@@ -21,13 +23,18 @@ class Button(pygame.sprite.Sprite):
 
         # effects attributes
         self.hover_color = "white"
+        self.hovered = False
         self.click_function = None
         self.release_function = None
 
     def on_hover(self):
+        if not self.hovered:
+            audio_composer.sfx_hover.play()
         self.color = self.hover_color
+        self.hovered = True
 
     def on_click(self):
+        audio_composer.sfx_click.play()
         self.click_function()
 
     def on_release(self):
@@ -35,6 +42,7 @@ class Button(pygame.sprite.Sprite):
 
     def reset(self):
         self.color = self.base_color
+        self.hovered = False
 
     def update(self):
         self.round()
