@@ -10,7 +10,7 @@ class MenuScene(Scene):
 
         self.background = Background(
             pygame.Rect(0 + 50, 0 + 50, self.display_surf.get_width() - 100, self.display_surf.get_height() - 100),
-            "black", "white")
+            "black", "white", self.display_surf)
 
         self.ui_group = pygame.sprite.GroupSingle()
 

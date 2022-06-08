@@ -2,10 +2,10 @@ import pygame
 
 
 class Background(pygame.Surface):
-    def __init__(self, rect, back_color, line_color):
+    def __init__(self, rect, back_color, line_color, display):
         super().__init__(rect.size)
         self.rect = rect
-        self.display_surf = pygame.display.get_surface()
+        self.display_surf = display
         self.draw_surface(back_color, line_color)
 
     def draw_surface(self, back_color, line_color):

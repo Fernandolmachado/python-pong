@@ -12,7 +12,8 @@ class GameScene(Scene):
         super().__init__(game_manager, clock, display)
 
         # setup background
-        self.background = Background(pygame.Rect(0, 50, screen_width, screen_height - 50), "black", "white")
+        self.background = Background(pygame.Rect(0, 50, screen_width, screen_height - 50),
+                                     "black", "white", self.display_surf)
         back_rect = self.background.get_field_rect()
 
         # setup players
