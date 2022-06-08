@@ -1,4 +1,5 @@
-from src import MenuScene, GameScene
+from src import MenuScene, GameScene, UserConfig
+from src import user_config
 
 
 class GameManager:

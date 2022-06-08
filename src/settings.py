@@ -1,6 +1,7 @@
 import pygame
 
 from src import UserConfig
+from src import load_settings
 
 # screen attributes
 screen_width = 1200
@@ -25,4 +26,4 @@ button_border = 10
 
 menu_color = pygame.Color(40, 40, 40, 180)
 
-user_config = UserConfig()
+user_config = load_settings()

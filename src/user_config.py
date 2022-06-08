@@ -1,9 +1,9 @@
 class UserConfig:
-    def __init__(self):
-        self.sxf_volume = 100
-        self.music_volume = 100
-        self.game_time = 60000
-        self.time_interval = 30000
+    def __init__(self, sxf=100, music=100, time=60000, interval=30000):
+        self.sxf_volume = sxf
+        self.music_volume = music
+        self.game_time = time
+        self.time_interval = interval
 
     def inc_sxf_volume(self):
         self.sxf_volume += 1

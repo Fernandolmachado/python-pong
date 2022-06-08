@@ -1,4 +1,5 @@
 from src import button_border, button_color, button_hover_color, user_config
+from src import save_settings
 from src import UI, Text, ArrowButton, Button
 
 
@@ -126,7 +127,7 @@ class OptionUI(UI):
 
         def on_click_exit():
             self.game.ui_index = 0
-            self.save_options()
+            save_settings(user_config)
 
         self.btn_menu.click_function = on_click_exit
 
@@ -134,7 +135,3 @@ class OptionUI(UI):
     def format_time(time):
         time_sec = time / 1000
         return "{:02d}:{:02d}".format(int(time_sec // 60), int(time_sec % 60))
-
-    def save_options(self):
-        # TODO: save options in json file
-        pass
