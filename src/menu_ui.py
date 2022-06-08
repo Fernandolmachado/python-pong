@@ -31,8 +31,7 @@ class MenuUI(UI):
         self.option_button.hover_color = button_hover_color
 
         def on_click_option():
-            pass
-            # TODO: create option
+            self.game.ui_index = 1
 
         self.option_button.click_function = on_click_option
 

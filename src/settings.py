@@ -1,8 +1,10 @@
 import pygame
 
+from src import UserConfig
+
 # screen attributes
 screen_width = 1200
-screen_height = 700
+screen_height = 675
 screen_caption = "Pong"
 
 # paddle attributes
@@ -15,14 +17,12 @@ ball_radius = 10
 
 # ball restart delay
 start_delay = 1000
-STARTEVENT = pygame.USEREVENT+1
 
 # pause button attributes
 button_color = (60, 60, 50, 150)
 button_hover_color = (160, 160, 100, 150)
 button_border = 10
 
-# game attributes
-match_time = 10000     # msec
-
 menu_color = pygame.Color(40, 40, 40, 180)
+
+user_config = UserConfig()

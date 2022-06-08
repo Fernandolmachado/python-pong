@@ -1,6 +1,6 @@
 import pygame
 
-from src import screen_width, screen_height, paddle_size, match_time, menu_color
+from src import screen_width, screen_height, paddle_size, menu_color, user_config
 from src import Background, Paddle, Ball
 from src import Timer
 from src import BoardUI, PauseUI, EndgameUI
@@ -36,7 +36,7 @@ class GameScene(Scene):
         self.ui_group = pygame.sprite.GroupSingle()
 
         disp_rect = self.display_surf.get_rect()
-        self.ui = BoardUI(self, (disp_rect.width/2, 25), (disp_rect.width, 50),
+        self.ui = BoardUI(self, (disp_rect.width / 2, 25), (disp_rect.width, 50),
                           pygame.Color(40, 40, 40, 180), [self.ui_group])
 
         # setup pause attributes
@@ -52,10 +52,10 @@ class GameScene(Scene):
         # setup end-game ui
         self.endgame_group = pygame.sprite.GroupSingle()
         self.endgame_ui = EndgameUI(self, (disp_rect.width / 2, disp_rect.height / 2),
-                                (disp_rect.width * 0.5, disp_rect.height * 0.5), menu_color, [self.endgame_group])
+                                    (disp_rect.width * 0.5, disp_rect.height * 0.5), menu_color, [self.endgame_group])
 
         # game attributes
-        self.game_time = Timer(self.clock, match_time)
+        self.game_time = Timer(self.clock, user_config.game_time)
         self.game_time.start()
 
         self.end = False
@@ -85,7 +85,7 @@ class GameScene(Scene):
     def make_shot(self):
         if self.paddle1.rect.colliderect(self.ball.rect):
             if (self.paddle1.rect.top > self.ball.rect.centery and self.ball.velocity.y > 0) \
-            or self.paddle1.rect.bottom < self.ball.rect.centery and self.ball.velocity.y < 0:
+                    or self.paddle1.rect.bottom < self.ball.rect.centery and self.ball.velocity.y < 0:
                 # check is collision is lateral
                 self.ball.velocity.y *= -1
             else:
@@ -97,7 +97,7 @@ class GameScene(Scene):
 
         if self.paddle2.rect.colliderect(self.ball.rect):
             if (self.paddle2.rect.top > self.ball.rect.centery and self.ball.velocity.y > 0) \
-            or (self.paddle2.rect.bottom < self.ball.rect.centery and self.ball.velocity.y < 0):
+                    or (self.paddle2.rect.bottom < self.ball.rect.centery and self.ball.velocity.y < 0):
                 # check is collision is lateral
                 self.ball.velocity.y *= -1
             else:
@@ -136,7 +136,7 @@ class GameScene(Scene):
 
     def run(self):
         self.input()
-        self.pause_timer.update()       # hold esc button activate to not process every frame
+        self.pause_timer.update()  # hold esc button activate to not process every frame
 
         if not self.paused and not self.end:
             self.rules()
@@ -154,4 +154,3 @@ class GameScene(Scene):
         if self.end:
             self.endgame_group.update()
             self.endgame_group.draw(self.display_surf)
-

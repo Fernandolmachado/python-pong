@@ -1,7 +1,7 @@
 import pygame
 import random
 
-from src import ball_speed, start_delay, ball_radius, STARTEVENT
+from src import ball_speed, start_delay, ball_radius
 from src import Timer
 
 

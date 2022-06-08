@@ -21,5 +21,6 @@ while True:
 
     screen.fill('black')
     manager.run()
+    # TODO: create a buffer surface, that will make window size flexible
     pygame.display.update()
     clock.tick(fps)

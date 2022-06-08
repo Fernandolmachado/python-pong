@@ -18,6 +18,7 @@ class UI(pygame.sprite.Sprite):
 
         # setup buttons
         self.button_group = pygame.sprite.Group()
+        self.button_size = (300, 80)
 
     def round(self):
         if not self.rounded:
