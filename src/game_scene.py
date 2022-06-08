@@ -8,8 +8,8 @@ from src import Scene
 
 
 class GameScene(Scene):
-    def __init__(self, game_manager, clock):
-        super().__init__(game_manager, clock)
+    def __init__(self, game_manager, clock, display):
+        super().__init__(game_manager, clock, display)
 
         # setup background
         self.background = Background(pygame.Rect(0, 50, screen_width, screen_height - 50), "black", "white")

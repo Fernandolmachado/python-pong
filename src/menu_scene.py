@@ -5,8 +5,8 @@ from src import Scene, Background, MenuUI, OptionUI
 
 
 class MenuScene(Scene):
-    def __init__(self, game_manager, clock):
-        super().__init__(game_manager, clock)
+    def __init__(self, game_manager, clock, display):
+        super().__init__(game_manager, clock, display)
 
         self.background = Background(
             pygame.Rect(0 + 50, 0 + 50, self.display_surf.get_width() - 100, self.display_surf.get_height() - 100),

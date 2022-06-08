@@ -2,8 +2,9 @@ from src import MenuScene, GameScene
 
 
 class GameManager:
-    def __init__(self, clock):
+    def __init__(self, clock, display):
         self.clock = clock
+        self.display = display
 
         self.current_scene = None
         self.last_scene = -1
@@ -16,7 +17,7 @@ class GameManager:
     def run(self):
         # check if was prompted another scene
         if self.scene_index != self.last_scene:
-            self.current_scene = self.scenes[self.scene_index](self, self.clock)
+            self.current_scene = self.scenes[self.scene_index](self, self.clock, self.display)
             self.last_scene = self.scene_index
 
         self.current_scene.run()
